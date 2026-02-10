@@ -1,17 +1,22 @@
 import { create } from 'zustand';
+import { PrayerData } from '../types/prayer';
 
-interface AppState {
-    count: number;
-    increment: () => void;
-    decrement: () => void;
-    reset: () => void;
+interface PrayerStore {
+    prayerData: PrayerData | null;
+    setPrayerData: (data: PrayerData) => void;
+    nextPrayerName: string | null;
+    setNextPrayerName: (name: string | null) => void;
+    timeRemaining: string; // Formatting HH:mm:ss
+    setTimeRemaining: (time: string) => void;
 }
 
-const useStore = create<AppState>((set) => ({
-    count: 0,
-    increment: () => set((state) => ({ count: state.count + 1 })),
-    decrement: () => set((state) => ({ count: state.count - 1 })),
-    reset: () => set({ count: 0 }),
+const useStore = create<PrayerStore>((set) => ({
+    prayerData: null,
+    setPrayerData: (data) => set({ prayerData: data }),
+    nextPrayerName: null,
+    setNextPrayerName: (name) => set({ nextPrayerName: name }),
+    timeRemaining: '00:00:00',
+    setTimeRemaining: (time) => set({ timeRemaining: time }),
 }));
 
 export default useStore;
